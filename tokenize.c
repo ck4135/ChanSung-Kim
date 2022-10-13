@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "classes.h"
+#include "scanner.h"
 
 #define START_STATE 0
 #define NORMAL_STATE 1
@@ -83,12 +84,11 @@ struct state **build_matrix(const char *filename) {
         token = strtok(NULL, delim);
 
         while (token != NULL) {
-            char action;
-            int class, transition; // character class and transition 
+            char action;               // char representing action
+            int class, transition;     // ints representing character class and transition 
             sscanf(token, "%d %*[/] %d %c", &class, &transition, &action);
             matrix[curr * NUM_CLASSES + class]->transition = (int)transition;
             matrix[curr * NUM_CLASSES + class]->action = (char)action;
-            //printf("%d, %d, %c\n", class, transition, action);
             token = strtok(NULL, delim);
         }
     }
@@ -131,7 +131,7 @@ void print_matrix( struct state **matrix ) {
             printf("%d", i);
         }
         for (int j=0; j<NUM_CLASSES; j++) {
-            if (matrix[i * NUM_CLASSES + j]->transition == -1) {
+            if (matrix[i * NUM_CLASSES + j]->transition == -1 || matrix[i * NUM_CLASSES + j]->transition > 9) {
                 printf("  %d%c", matrix[i * NUM_CLASSES + j]->transition, matrix[i* NUM_CLASSES + j]->action);
             } else {
                 printf("   %d%c", matrix[i * NUM_CLASSES + j]->transition, matrix[i* NUM_CLASSES + j]->action);
@@ -139,6 +139,7 @@ void print_matrix( struct state **matrix ) {
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 int main( int argc, char *argv[] ) {
@@ -150,6 +151,7 @@ int main( int argc, char *argv[] ) {
     struct state **matrix;
     matrix = build_matrix(argv[1]);
     print_matrix(matrix);
+   // process(matrix);
 
     free(matrix);
 
