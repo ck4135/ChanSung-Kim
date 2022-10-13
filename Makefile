@@ -1,5 +1,5 @@
 #
-# Created by gmakemake (Ubuntu Jul 25 2014) on Tue Oct 11 21:41:28 2022
+# Created by gmakemake (Ubuntu Jul 25 2014) on Thu Oct 13 14:30:36 2022
 #
 
 #
@@ -51,13 +51,13 @@ CLIBFLAGS =
 
 
 CPP_FILES =	
-C_FILES =	tokenize.c
+C_FILES =	scanner.c tokenize.c
 PS_FILES =	
 S_FILES =	
-H_FILES =	classes.h
+H_FILES =	classes.h scanner.h
 SOURCEFILES =	$(H_FILES) $(CPP_FILES) $(C_FILES) $(S_FILES)
 .PRECIOUS:	$(SOURCEFILES)
-OBJFILES =	
+OBJFILES =	scanner.o 
 
 #
 # Main targets
@@ -72,7 +72,8 @@ tokenize:	tokenize.o $(OBJFILES)
 # Dependencies
 #
 
-tokenize.o:	classes.h
+scanner.o:	classes.h scanner.h
+tokenize.o:	classes.h scanner.h
 
 #
 # Housekeeping

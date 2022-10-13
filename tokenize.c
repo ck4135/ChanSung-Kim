@@ -14,15 +14,10 @@
 #define NORMAL_STATE 1
 #define ACCEPT_STATE 2
 
-struct state{
-    char action;
-    int transition;
-} state; 
-
 const char delim[] = " \t\n";   // string of delimiters 
 int nstates;                    // number of states
 
-struct state **build_matrix(const char *filename) {
+state **build_matrix(const char *filename) {
     // open file
     FILE *fp = fopen(filename, "r");
     // check to make sure the open succeeded
@@ -53,7 +48,7 @@ struct state **build_matrix(const char *filename) {
 
     // declaring the transition matrix
     nstates = data[0];
-    struct state **matrix;
+    state **matrix;
     matrix = malloc( nstates * NUM_CLASSES * sizeof(state) );
 
     for (int i=0; i<nstates * NUM_CLASSES; i++) {
@@ -99,7 +94,7 @@ struct state **build_matrix(const char *filename) {
     return(matrix);
 }
 
-void free_matrix( struct state **matrix ) {
+void free_matrix( state **matrix ) {
     if (matrix == NULL) {
         return;
     }
@@ -111,7 +106,7 @@ void free_matrix( struct state **matrix ) {
     free(matrix);
 }
 
-void print_matrix( struct state **matrix ) {
+void print_matrix( state **matrix ) {
     // prints the header lines
     printf("Scanning using the following matrix:\n  ");
     for (int header=0; header<NUM_CLASSES; header++) {
@@ -148,10 +143,10 @@ int main( int argc, char *argv[] ) {
         exit(1);
     }
 
-    struct state **matrix;
+    state **matrix;
     matrix = build_matrix(argv[1]);
     print_matrix(matrix);
-   // process(matrix);
+    process(matrix);
 
     free(matrix);
 
