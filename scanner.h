@@ -13,22 +13,17 @@ typedef
     struct State{
         char action;
         int transition;
+        int status;
     } state;
 
 #define BUFFER  79  // max buffer size of a token
 
-static const char* SPACE  = " ";
-static const char* TAB    = "\t";
-static const char* NL     = "\n";
-static const char* SCORE  = "_";
-static const char* SLASH  = "/";
-static const char* STAR   = "*";
-static const char* PLUS   = "+";
-static const char* DASH   = "-";
-static const char* MOD    = "%";
+#define STARTING    0
+#define NORMAL      1
+#define ACCEPTING   2
 
-void process( state **matrix );
+void process( state **matrix, int nstates );
 
-int char_class( char* cc );
+int char_class( char cc );
 
 #endif

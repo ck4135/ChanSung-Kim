@@ -8,55 +8,96 @@
 #include "classes.h"
 #include "scanner.h"
 
-void process( state **matrix ) {
-    char buf[BUFFER], *token;
-    char c;
-    token = buf;
+void process( state **matrix, int nstates ) {
+    char buf[BUFFER];
+    char c = getchar();
+    int count = 1;
 
-    while ((c = getchar()) != EOF) {
-        int cc = char_class(c);
-        printf("%d\n", cc);
+    // find starting and accepting states
+    int start, accept;
+    for (int i=0; i<nstates; i++) {
+        if (matrix[i * NUM_CLASSES]->status == STARTING) {
+            start = i;
+        } 
+        if (matrix[i * NUM_CLASSES]->status == ACCEPTING) {
+            accept = i;
+        }
     }
+
+    // read characters 1 by 1 from stdin and scan it with matrix
+    printf("%d", start);
+    buf[0] = c;
+    int currNum = start;
+    state *curr;
+    while ((c = getchar()) != EOF) {
+        curr = matrix[currNum * NUM_CLASSES + char_class(c)];
+        printf(" %d", curr->transition);
+        if (curr->transition == 9) {
+            buf[count++] = '\0';
+            printf(" recognized '%s'\n%d", buf, start);
+            currNum = start;
+            memset(buf, 0, BUFFER);
+            count = 0;
+            continue;
+        }
+        if (curr->transition == -1) {
+            printf(" rejecting\n%d", start);
+            while ((c = getchar()) != EOF) {
+                if (c == ' ' || c == '\n') {
+                    break;
+                }
+            }
+            currNum = start;
+            memset(buf, 0, BUFFER);
+            count = 0;
+            continue;
+
+        }
+        if (curr->action == 's') {
+            buf[count] = c;
+        }
+        currNum = curr->transition;
+        count++;
+    }
+
+    //reaches EOF
+    printf(" %d EOF\n", accept);
 
     return;
 }
 
 int char_class( char cc ) {
     int class;
-    int ascii = cc;
-    if (*cc == *SPACE || *cc == *TAB) {
+    if (cc == ' ' || cc == '\t') {
         class = CC_WS;
     } 
-    else if (*cc == *NL) {
+    else if (cc == '\n') {
         class = CC_NL;
     } 
-    else if (isalpha(cc) || *cc == *SCORE) {
+    else if (isalpha(cc) || cc == '_') {
         class = CC_ALPHA;
     } 
-    else if ((int)*cc == 0) {
+    else if (cc == '0') {
         class = CC_ZERO;
     } 
-    else if ((int)*cc >= 1 && (int)*cc <= 7) {
+    else if (cc >= '1' && cc <= '7') {
         class = CC_OCTAL;
     }
-    else if ((int)*cc == 8 || (int)*cc == 9) {
+    else if (cc == '8' || cc == '9') {
         class = CC_DECIMAL;
     }
-    else if (*cc == *SLASH) {
+    else if (cc == '/') {
         class = CC_SLASH;
     }
-    else if (*cc == *STAR) {
+    else if (cc == '*') {
         class = CC_STAR;
     }
-    else if (*cc == *PLUS || *cc == *DASH || *cc == *MOD) {
+    else if (cc == '+' || cc == '-' || cc == '%') {
         class = CC_ARITH;
     }
-    else if (ascii >= 1 && ascii <= 127) {
+    else {
         class = CC_OTHER;
     }
-    else {
-        class = CC_ERROR;
-        }
 
     return class;
 }

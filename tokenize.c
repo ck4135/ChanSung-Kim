@@ -10,10 +10,6 @@
 #include "classes.h"
 #include "scanner.h"
 
-#define START_STATE 0
-#define NORMAL_STATE 1
-#define ACCEPT_STATE 2
-
 const char delim[] = " \t\n";   // string of delimiters 
 int nstates;                    // number of states
 
@@ -61,7 +57,14 @@ state **build_matrix(const char *filename) {
         for (int j=0; j<NUM_CLASSES; j++) {
             matrix[i * NUM_CLASSES + j]->transition = -1;
             matrix[i * NUM_CLASSES + j]->action = discard;
+            matrix[i * NUM_CLASSES + j]->status = NORMAL;
         }
+    }
+    
+    // setting starting and accepting states
+    for (int i=0; i<NUM_CLASSES; i++) {
+        matrix[data[1] * NUM_CLASSES + i]->status = STARTING;
+        matrix[data[2] * NUM_CLASSES + i]->status = ACCEPTING;
     }
 
     // read and process all remaining lines from file
@@ -146,7 +149,7 @@ int main( int argc, char *argv[] ) {
     state **matrix;
     matrix = build_matrix(argv[1]);
     print_matrix(matrix);
-    process(matrix);
+    process(matrix, nstates);
 
     free(matrix);
 
