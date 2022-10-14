@@ -1,0 +1,35 @@
+commit 02b060d9b9c98949908fa1e3c24b354cc0167b0a
+Author: Chan-Sung Kim <ck4135@cs.rit.edu>
+Date:   Thu Oct 13 21:21:54 2022 -0400
+
+    Fixed formatting issues
+
+commit 563505986120f0dce149c9dde6a9c2881f7a4df1
+Author: Chan-Sung Kim <ck4135@cs.rit.edu>
+Date:   Thu Oct 13 21:09:32 2022 -0400
+
+    Scanner produces correct output, mostly
+
+commit 1fc354dd88a6f93aebd536f7a6bea5a6e7de5a55
+Author: Chan-Sung Kim <ck4135@cs.rit.edu>
+Date:   Thu Oct 13 14:52:40 2022 -0400
+
+    Scanner progress
+
+commit f1dafad2a83ce8c00e10eae4c9a930307b0c608d
+Author: Chan-Sung Kim <ck4135@cs.rit.edu>
+Date:   Thu Oct 13 13:52:29 2022 -0400
+
+    Set up scanner source file and header file
+
+commit 8a39473f7dfe16fc96ceeaed935b246101d8f31f
+Author: Chan-Sung Kim <ck4135@cs.rit.edu>
+Date:   Thu Oct 13 13:51:45 2022 -0400
+
+    Set up scanner source file and header file
+
+commit 0ded51237e4494f8b89a49a0c086213dad2348e0
+Author: Chan-Sung Kim <ck4135@cs.rit.edu>
+Date:   Wed Oct 12 22:13:33 2022 -0400
+
+    Read and building the TM

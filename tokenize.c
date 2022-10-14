@@ -102,7 +102,7 @@ void free_matrix( state **matrix ) {
         return;
     }
 
-    for (int i=0; i<nstates; i++) {
+    for (int i=0; i<nstates * NUM_CLASSES; i++) {
         free(matrix[i]);
     }
 
@@ -138,7 +138,6 @@ void print_matrix( state **matrix ) {
         }
         printf("\n");
     }
-    printf("\n");
 }
 
 int main( int argc, char *argv[] ) {

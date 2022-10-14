@@ -28,22 +28,23 @@ void process( state **matrix, int nstates ) {
     printf("%d", start);
     buf[0] = c;
     int currNum = start;
-    state *curr;
+    state *curr = matrix[start * NUM_CLASSES + char_class(c)];
     while ((c = getchar()) != EOF) {
-        curr = matrix[currNum * NUM_CLASSES + char_class(c)];
         printf(" %d", curr->transition);
-        if (curr->transition == 9) {
+        curr = matrix[currNum * NUM_CLASSES + char_class(c)];
+        if (curr->transition == accept) {
             buf[count++] = '\0';
-            printf(" recognized '%s'\n%d", buf, start);
+            printf(" %d recognized '%s'\n%d", accept, buf, start);
             currNum = start;
             memset(buf, 0, BUFFER);
             count = 0;
             continue;
         }
         if (curr->transition == -1) {
-            printf(" rejected\n%d", start);
+            printf(" -1 rejected\n%d", start);
             while ((c = getchar()) != EOF) {
                 if (c == ' ' || c == '\n') {
+                    curr = matrix[currNum * NUM_CLASSES + char_class(c)];
                     break;
                 }
             }
