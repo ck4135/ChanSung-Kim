@@ -111,11 +111,12 @@ void free_matrix( state **matrix ) {
 
 void print_matrix( state **matrix ) {
     // prints the header lines
-    printf("Scanning using the following matrix:\n  ");
-    for (int header=0; header<NUM_CLASSES; header++) {
+    printf("Scanning using the following matrix:\n ");
+    for (int header=0; header<NUM_CLASSES; header++) { 
         if (header < 10) {
             printf("    %d", header);
-        } else {
+        } 
+        else {
             printf("   %d", header);
         }
     }

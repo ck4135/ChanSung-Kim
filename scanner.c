@@ -41,7 +41,7 @@ void process( state **matrix, int nstates ) {
             continue;
         }
         if (curr->transition == -1) {
-            printf(" rejecting\n%d", start);
+            printf(" rejected\n%d", start);
             while ((c = getchar()) != EOF) {
                 if (c == ' ' || c == '\n') {
                     break;
