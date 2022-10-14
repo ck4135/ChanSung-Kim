@@ -10,8 +10,8 @@
 
 void process( state **matrix, int nstates ) {
     char buf[BUFFER];
-    char c = getchar();
-    int count = 1;
+    char c;
+    int count = 0;
 
     // find starting and accepting states
     int start, accept;
@@ -26,22 +26,22 @@ void process( state **matrix, int nstates ) {
 
     // read characters 1 by 1 from stdin and scan it with matrix
     printf("%d", start);
-    buf[0] = c;
+
     int currNum = start;
-    state *curr = matrix[start * NUM_CLASSES + char_class(c)];
+    state *curr;
     while ((c = getchar()) != EOF) {
-        printf(" %d", curr->transition);
         curr = matrix[currNum * NUM_CLASSES + char_class(c)];
+        printf(" %d", curr->transition);
         if (curr->transition == accept) {
             buf[count++] = '\0';
-            printf(" %d recognized '%s'\n%d", accept, buf, start);
+            printf(" recognized '%s'\n%d", buf, start);
             currNum = start;
             memset(buf, 0, BUFFER);
             count = 0;
             continue;
         }
         if (curr->transition == -1) {
-            printf(" -1 rejected\n%d", start);
+            printf(" rejected\n%d", start);
             while ((c = getchar()) != EOF) {
                 if (c == ' ' || c == '\n') {
                     curr = matrix[currNum * NUM_CLASSES + char_class(c)];

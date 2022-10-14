@@ -1,3 +1,9 @@
+commit fa0cfc971b65ae84bd8b1a664a998f40182dcc60
+Author: Chan-Sung Kim <ck4135@cs.rit.edu>
+Date:   Thu Oct 13 22:41:53 2022 -0400
+
+    Output matches output files
+
 commit 02b060d9b9c98949908fa1e3c24b354cc0167b0a
 Author: Chan-Sung Kim <ck4135@cs.rit.edu>
 Date:   Thu Oct 13 21:21:54 2022 -0400
