@@ -1,13 +1,15 @@
 /// File: scanner.c
 /// Author: ChanSung Kim
 ///         ck4135
-///
+/// 
+/// Scanner class scans through given standard input and recognizes or rejects tokens using the transition matrix
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "classes.h"
 #include "scanner.h"
 
+/// Processes characters 1 by 1 from stdin
 void process( state **matrix, int nstates ) {
     char buf[BUFFER];
     char c;
@@ -67,6 +69,7 @@ void process( state **matrix, int nstates ) {
     return;
 }
 
+/// Classifies character into a character class
 int char_class( char cc ) {
     int class;
     if (cc == ' ' || cc == '\t') {

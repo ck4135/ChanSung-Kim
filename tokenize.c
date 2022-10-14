@@ -2,7 +2,7 @@
 /// Author: chansung kim
 ///         ck4135
 ///
-///
+/// Tokenize.c takes in a tm file and builds a transition matrix using the data and information given
 #define _DEFAULT_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +13,11 @@
 const char delim[] = " \t\n";   // string of delimiters 
 int nstates;                    // number of states
 
+/// 
+/// Build_matrix given a file, opens the file and builds and returns the transition matrix
+///
+///@param filename = name of tm file
+///@return completed transition matrix
 state **build_matrix(const char *filename) {
     // open file
     FILE *fp = fopen(filename, "r");
@@ -97,18 +102,26 @@ state **build_matrix(const char *filename) {
     return(matrix);
 }
 
+/// Frees the matrix and deallocates the memory used
+///
+/// @param **matrix = given transition matrix
 void free_matrix( state **matrix ) {
     if (matrix == NULL) {
         return;
     }
 
-    for (int i=0; i<nstates * NUM_CLASSES; i++) {
-        free(matrix[i]);
+    for (int i=0; i<nstates; i++) {
+        for (int j=0; j<NUM_CLASSES; j++) {
+            free(matrix[i * NUM_CLASSES + j]);
+        }
     }
 
     free(matrix);
 }
 
+/// Prints the matrix in the correct format
+///
+///@param **matrix = transition matrix
 void print_matrix( state **matrix ) {
     // prints the header lines
     printf("Scanning using the following matrix:\n ");
@@ -141,6 +154,7 @@ void print_matrix( state **matrix ) {
 }
 
 int main( int argc, char *argv[] ) {
+    ///checks if the number of arguments input when calling file is proper
     if (argc != 2) {
         fputs("usage: ./tokenize tmfile\n", stderr);
         exit(1);

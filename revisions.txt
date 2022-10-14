@@ -1,3 +1,9 @@
+commit b12aed7e25c921f11b37f2960040c6a0bdf65370
+Author: Chan-Sung Kim <ck4135@cs.rit.edu>
+Date:   Thu Oct 13 22:54:21 2022 -0400
+
+    Fixed formatting of output
+
 commit fa0cfc971b65ae84bd8b1a664a998f40182dcc60
 Author: Chan-Sung Kim <ck4135@cs.rit.edu>
 Date:   Thu Oct 13 22:41:53 2022 -0400
